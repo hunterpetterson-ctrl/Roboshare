@@ -55,6 +55,18 @@ This version of BOTdar is configured as a **"Model Prototype"** for demonstratio
 
 *To transition to live production: Replace the `.env.local` keys and toggle the `Navigation.geolocation` interlock in `app/scan/page.tsx`.*
 
+## 🤝 Collaborating
+
+To share this project with a co-developer:
+
+1.  **Push to Git**: Ensure all changes are committed and pushed to a shared repository (GitHub, GitLab, etc.).
+2.  **Share Environment Keys**: The `.env.local` file is *not* committed to git for security. varied
+    -   Securely share your `GEMINI_API_KEY` and Mapbox token with your teammate.
+    -   They must create their own `.env.local` file in the root directory.
+3.  **Run Development Server**:
+    -   `npm install` (to get dependencies)
+    -   `npm run dev` (to start the local server)
+
 ---
 
 *“If you see a bot, you scan a bot. The census must match the reality.”*
