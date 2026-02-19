@@ -14,12 +14,12 @@ export async function identifyBot(imageData: string) {
                 data: {
                     class: "delivery_bot",
                     confidence: 0.98,
-                    vibe_score: 82,
-                    description: "Serve Robotics Gen 3 unit detected. Engaging in last-mile burrito distribution with moderate dystopian efficiency.",
+                    vibe_score: 92,
+                    description: "Serve Robotics Gen 3 unit detected. Engaging in last-mile logistics with exceptional operational efficiency and community-first protocols.",
                     specs: {
                         weight: 45,
                         speed: 6,
-                        goals: "Burrito relocation"
+                        goals: "Sustainable delivery"
                     }
                 }
             };
@@ -37,17 +37,17 @@ export async function identifyBot(imageData: string) {
         // 2. Define Prompt & Schema
         // We ask for a strictly valid JSON response.
         const prompt = `
-        You are a cynical, elite technical observer for the "BOTdar" autonomous machine census.
-        Your task is to deconstruct this image and classify the machine within with surgical precision.
+        You are an optimistic, elite technical observer for the "BOTdar" autonomous machine census.
+        Your task is to deconstruct this image and classify the machine within with surgical precision, celebrating the future of automation.
         
         Return a JSON object with the following fields:
         - class: One of ["sidewalk_courier", "delivery_bot", "aerial_drone", "quadrupedal_inspector", "autonomous_road_vehicle", "surveillance_unit", "not_a_bot"]
         - confidence: Number (0.0 - 1.0)
         - estimated_weight_kg: Number
         - max_speed_kmh: Number
-        - usual_goals: String (be specific: "Stealing jobs", "Last-mile carb consumption", "Aggressive surveillance")
-        - vibe_score: Number (0-100, where 100 is maximum dystopian cyberpunk energy)
-        - description: Technical identification. Reference specific hardware models if visible (e.g., "Serve Robotics G3", "Starship MK4"). Be witty, slightly nihilistic, and technical.
+        - usual_goals: String (be specific: "Improving logistics", "Last-mile carb optimization", "Ensuring safety")
+        - vibe_score: Number (0-100, where 100 is maximum operational efficiency and positive utility)
+        - description: Technical identification. Reference specific hardware models if visible (e.g., "Serve Robotics G3", "Starship MK4"). Be witty, upbeat, and highly technical.
         
         If it's just a human or a cat, set class to "not_a_bot" and confidence to 0.
         OUTPUT ONLY JSON. NO MARKDOWN. NO CHATTER.

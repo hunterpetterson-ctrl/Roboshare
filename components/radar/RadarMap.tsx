@@ -1,10 +1,9 @@
-
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Map, { Marker } from 'react-map-gl/mapbox';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Scan, X, Zap, Activity } from 'lucide-react';
+import { Scan, Activity, ChevronRight, Info, Shield, Zap, Target, MapPin, X } from 'lucide-react';
 import { mapboxConfig } from '@/lib/mapboxConfig';
 import { supabase } from '@/lib/supabaseClient';
 import { BotSighting } from '@/types';
@@ -15,48 +14,74 @@ export default function RadarMap() {
     const [sightings, setSightings] = useState<BotSighting[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedBot, setSelectedBot] = useState<BotSighting | null>(null);
+    const [activePanel, setActivePanel] = useState<'signals' | 'index' | 'health' | null>(null);
 
     useEffect(() => {
-        // Fetch initial sightings (mock or real)
+        // MISSION CONTROL: Loading diverse prototype dataset
         const fetchSightings = async () => {
-            let coreSightings: BotSighting[] = [];
+            const prototypeBots: BotSighting[] = [
+                {
+                    id: 'proto-1',
+                    location: { latitude: 37.7749, longitude: -122.4194 },
+                    class: 'sidewalk_courier',
+                    vibe_score: 91,
+                    timestamp: new Date().toISOString(),
+                    metadata: {
+                        description: "Serve Robotics G3. A marvel of last-mile logistics. Currently executing a perfect 'no-contact' delivery loop.",
+                        specs: { weight: 45, speed: 6 }
+                    }
+                },
+                {
+                    id: 'proto-2',
+                    location: { latitude: 37.7800, longitude: -122.4250 },
+                    class: 'aerial_drone',
+                    vibe_score: 96,
+                    timestamp: new Date().toISOString(),
+                    metadata: {
+                        description: "SkyLink-4 Recon. Achieving 99.9% uptime in environmental monitoring. A true guardian of the mesh.",
+                        specs: { weight: 12, speed: 55 }
+                    }
+                },
+                {
+                    id: 'proto-3',
+                    location: { latitude: 37.7700, longitude: -122.4100 },
+                    class: 'surveillance_unit',
+                    vibe_score: 89,
+                    timestamp: new Date().toISOString(),
+                    metadata: {
+                        description: "Knightscope K5. The friendly face of automated safety. Incident prevention logic is running at peak optimization.",
+                        specs: { weight: 180, speed: 5 }
+                    }
+                },
+                {
+                    id: 'proto-4',
+                    location: { latitude: 37.7850, longitude: -122.4150 },
+                    class: 'humanoid',
+                    vibe_score: 98,
+                    timestamp: new Date().toISOString(),
+                    metadata: {
+                        description: "Unitree H1. Peak anthropomorphic engineering. Demonstrated a 14% improvement in 'polite passage' algorithms this week.",
+                        specs: { weight: 75, speed: 4.8 }
+                    }
+                },
+                {
+                    id: 'proto-5',
+                    location: { latitude: 37.7650, longitude: -122.4200 },
+                    class: 'autonomous_road_vehicle',
+                    vibe_score: 88,
+                    timestamp: new Date().toISOString(),
+                    metadata: {
+                        description: "Waymo Gen 5. A symphony of sensor fusion. Effectively a mobile data center contributing to a zero-collision future.",
+                        specs: { weight: 2200, speed: 105 }
+                    }
+                }
+            ];
 
-            // 1. Fetch from Supabase if configured
-            if (process.env.NEXT_PUBLIC_SUPABASE_URL && !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('your-project')) {
-                const { data } = await supabase
-                    .from('bot_sightings')
-                    .select('*');
-                if (data) coreSightings = data as BotSighting[];
-            }
-
-            // 2. Merge with LocalStorage (Demo Persistence)
+            // Load any demo-scanned bots
             const localSaved = localStorage.getItem('bot_sightings_demo');
             const localSightings = localSaved ? JSON.parse(localSaved) : [];
 
-            // 3. Fallback to Initial Mock if map is empty
-            if (coreSightings.length === 0 && localSightings.length === 0) {
-                console.log("Using initial mock signals for demo environment");
-                coreSightings = [
-                    {
-                        id: 'demo-1',
-                        location: { latitude: 37.7749, longitude: -122.4194 },
-                        class: 'delivery',
-                        vibe_score: 85,
-                        timestamp: new Date().toISOString(),
-                        metadata: { description: "Simulated courier unit. Autonomous burrito relocation active." }
-                    },
-                    {
-                        id: 'demo-2',
-                        location: { latitude: 37.7849, longitude: -122.4094 },
-                        class: 'security',
-                        vibe_score: 92,
-                        timestamp: new Date().toISOString(),
-                        metadata: { description: "High-latency security unit. Observing sidewalk traffic with aggressive intent." }
-                    }
-                ];
-            }
-
-            setSightings([...coreSightings, ...localSightings]);
+            setSightings([...prototypeBots, ...localSightings]);
             setLoading(false);
         };
 
@@ -77,23 +102,71 @@ export default function RadarMap() {
     }, []);
 
     return (
-        <div className="relative w-full h-screen bg-black">
-            <Map
-                {...viewState}
-                onMove={(evt: { viewState: typeof viewState }) => setViewState(evt.viewState)}
-                style={{ width: '100%', height: '100%' }}
-                mapStyle={mapboxConfig.styleUrl}
-                mapboxAccessToken={mapboxConfig.accessToken}
-                attributionControl={false}
-            >
-                {sightings.map((bot) => (
-                    <Marker
-                        key={bot.id}
-                        latitude={bot.location.latitude}
-                        longitude={bot.location.longitude}
-                    >
+        <div className="relative w-full h-screen bg-[#050505] overflow-hidden flex items-center justify-center">
+            {/* Tactical Ground Plane (Synthetic Urban Mesh) */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center">
+                {/* 3D Perspective Grid - High Intensity */}
+                <div
+                    className="absolute w-[300%] h-[300%] opacity-30"
+                    style={{
+                        backgroundImage: `radial-gradient(circle at 2px 2px, rgba(0,123,255,0.6) 1.5px, transparent 0)`,
+                        backgroundSize: '60px 60px',
+                        transform: 'perspective(1200px) rotateX(55deg) translateY(-200px)',
+                    }}
+                />
+
+                {/* Urban Wireframe (SVG) - High Contrast */}
+                <svg className="absolute w-full h-full opacity-25" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <pattern id="urban-blocks" x="0" y="0" width="250" height="250" patternUnits="userSpaceOnUse">
+                            {/* Block Structures */}
+                            <rect x="10" y="10" width="100" height="150" fill="rgba(0,123,255,0.05)" stroke="rgba(0,123,255,0.4)" strokeWidth="1" />
+                            <rect x="130" y="20" width="90" height="90" fill="rgba(0,123,255,0.05)" stroke="rgba(0,123,255,0.4)" strokeWidth="1" />
+                            <rect x="150" y="130" width="70" height="100" fill="rgba(0,123,255,0.05)" stroke="rgba(0,123,255,0.4)" strokeWidth="1" />
+                            <rect x="20" y="180" width="80" height="50" fill="rgba(0,123,255,0.05)" stroke="rgba(0,123,255,0.4)" strokeWidth="1" />
+
+                            {/* Major Arterials */}
+                            <line x1="0" y1="125" x2="250" y2="125" stroke="rgba(0,123,255,0.8)" strokeWidth="1.5" strokeDasharray="10 5" />
+                            <line x1="125" y1="0" x2="125" y2="250" stroke="rgba(0,123,255,0.8)" strokeWidth="1.5" strokeDasharray="10 5" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#urban-blocks)" />
+
+                    {/* Perspective Hubs */}
+                    <circle cx="500" cy="500" r="150" fill="none" stroke="rgba(0,123,255,0.5)" strokeWidth="1" />
+                    <circle cx="500" cy="500" r="400" fill="none" stroke="rgba(0,123,255,0.3)" strokeWidth="0.5" />
+                </svg>
+
+                {/* Radar Sweep Animation */}
+                <motion.div
+                    className="absolute inset-0 origin-center bg-[conic-gradient(from_0deg,transparent_0deg,rgba(0,123,255,0.15)_60deg,transparent_120deg)]"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                />
+
+                {/* Vignette Depth */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_90%)]" />
+            </div>
+
+            {/* Synthetic Marker Layer */}
+            <div className="absolute inset-0 z-10 p-12 lg:p-32">
+                {sightings.map((bot) => {
+                    // Wide Bounds to "Zoom Out" for the Demo
+                    const latMin = 37.74, latMax = 37.81;
+                    const lngMin = -122.45, lngMax = -122.38;
+
+                    const left = ((bot.location.longitude - lngMin) / (lngMax - lngMin)) * 100;
+                    const top = 100 - ((bot.location.latitude - latMin) / (latMax - latMin)) * 100;
+
+                    return (
                         <div
-                            className="relative group cursor-pointer"
+                            key={bot.id}
+                            className="absolute group cursor-pointer transition-all duration-500"
+                            style={{
+                                left: `${left}%`,
+                                top: `${top}%`,
+                                transform: 'translate(-50%, -50%)'
+                            }}
                             onClick={(e) => {
                                 e.stopPropagation();
                                 setSelectedBot(bot);
@@ -126,16 +199,17 @@ export default function RadarMap() {
                                 <div className="w-3 h-3 bg-radar-blue rounded-full shadow-[0_0_15px_#007BFF] border border-white/40" />
 
                                 {/* Label (Visible on hover) */}
-                                <div className="absolute left-6 whitespace-nowrap bg-black/80 backdrop-blur px-2 py-1 rounded border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <p className="text-[9px] font-mono text-white uppercase tracking-tighter">
-                                        {bot.class.replace(/_/g, ' ')} / {bot.vibe_score}%
+                                <div className="absolute left-6 whitespace-nowrap bg-black/80 backdrop-blur px-2 py-1 rounded border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity z-[100]">
+                                    <p className="text-[10px] font-black text-white uppercase tracking-widest">{bot.class.replace(/_/g, ' ')}</p>
+                                    <p className="text-[8px] font-mono text-radar-blue flex items-center gap-1">
+                                        <MapPin className="w-2 h-2" /> {bot.location.latitude.toFixed(4)}, {bot.location.longitude.toFixed(4)}
                                     </p>
                                 </div>
                             </motion.div>
                         </div>
-                    </Marker>
-                ))}
-            </Map>
+                    );
+                })}
+            </div>
 
             {/* Side Panel: Bot Detail View */}
             <AnimatePresence mode="wait">
@@ -169,7 +243,7 @@ export default function RadarMap() {
                         <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
                             {/* Vibe Score Gauge */}
                             <div className="text-center bg-white/5 rounded-2xl py-6 border border-white/5">
-                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Dystopian energy</p>
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">BOT score</p>
                                 <div className="relative inline-block">
                                     <svg className="w-28 h-28 transform -rotate-90">
                                         <circle cx="56" cy="56" r="50" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-white/5" />
@@ -184,7 +258,7 @@ export default function RadarMap() {
                                     </svg>
                                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                                         <span className="text-3xl font-black text-white">{selectedBot.vibe_score}%</span>
-                                        <span className="text-[8px] text-gray-500 font-bold uppercase tracking-widest">Critical</span>
+                                        <span className="text-[8px] text-gray-500 font-bold uppercase tracking-widest">Efficiency</span>
                                     </div>
                                 </div>
                             </div>
@@ -273,25 +347,35 @@ export default function RadarMap() {
                 </motion.div>
 
                 <motion.div
+                    layout
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="bento-tile pointer-events-auto shadow-2xl overflow-hidden"
+                    className={`bento-tile pointer-events-auto shadow-2xl overflow-hidden transition-all duration-500 ${activePanel === 'signals' ? 'w-80 h-96' : 'w-auto'}`}
                 >
-                    <div className="flex justify-between items-end mb-3 px-1">
+                    <div
+                        className="flex justify-between items-center mb-3 px-1 cursor-pointer"
+                        onClick={() => setActivePanel(activePanel === 'signals' ? null : 'signals')}
+                    >
                         <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Active signals</p>
-                        <p className="text-xs font-mono text-radar-blue font-bold">{sightings.length}</p>
+                        <div className="flex items-center gap-2">
+                            <p className="text-xs font-mono text-radar-blue font-bold">{sightings.length}</p>
+                            <ChevronRight className={`w-3 h-3 text-gray-600 transition-transform ${activePanel === 'signals' ? 'rotate-90' : ''}`} />
+                        </div>
                     </div>
-                    <div className="space-y-1.5 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+                    <div className={`space-y-1.5 overflow-y-auto pr-2 custom-scrollbar transition-all ${activePanel === 'signals' ? 'h-80' : 'max-h-48'}`}>
                         {loading ? (
                             <div className="animate-pulse space-y-2">
                                 <div className="h-10 bg-white/5 rounded-xl" />
                                 <div className="h-10 bg-white/5 rounded-xl" />
                             </div>
-                        ) : sightings.slice(0, 5).map(s => (
+                        ) : sightings.slice(0, activePanel === 'signals' ? 50 : 5).map(s => (
                             <button
                                 key={s.id}
-                                onClick={() => setSelectedBot(s)}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedBot(s);
+                                }}
                                 className={`w-full flex items-center justify-between p-3 rounded-xl border transition-all cursor-pointer text-left ${selectedBot?.id === s.id ? 'bg-radar-blue/20 border-radar-blue/40 ring-1 ring-radar-blue/20' : 'bg-white/5 border-white/5 hover:bg-white/10'}`}
                             >
                                 <div className="flex flex-col">
@@ -309,27 +393,34 @@ export default function RadarMap() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="flex flex-col gap-1 font-mono text-[8px] text-radar-blue/40 uppercase tracking-widest pl-1 pointer-events-none"
+                    className="flex flex-col gap-1 font-mono text-[8px] text-radar-blue/40 uppercase tracking-widest pl-1 pointer-events-none bg-black/20 p-2 rounded-lg border border-radar-blue/5 backdrop-blur-sm"
                 >
                     <p>{`> MESH_INIT_SUCCESS`}</p>
                     <p>{`> UPLINK_STABLE_88%`}</p>
                     <p>{`> SCAN_PASS_ACTIVE`}</p>
+                    <p className="mt-2 text-radar-blue/60 italic">{`"Automating progress, one signal at a time."`}</p>
                 </motion.div>
             </div>
 
             {/* Top Right: Bot Index Card */}
             <div className="absolute top-6 right-6 z-10 flex flex-col gap-4 scale-90 sm:scale-100 origin-top-right pointer-events-none">
                 <motion.div
+                    layout
                     initial={{ x: 20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    className="bento-tile w-52 text-center relative overflow-hidden pointer-events-auto shadow-2xl"
+                    className={`bento-tile relative overflow-hidden pointer-events-auto shadow-2xl transition-all duration-500 cursor-pointer ${activePanel === 'index' ? 'w-64' : 'w-52'}`}
+                    onClick={() => setActivePanel(activePanel === 'index' ? null : 'index')}
                 >
                     <div className="absolute -top-12 -right-12 w-32 h-32 bg-data-green/5 blur-3xl rounded-full" />
-                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Local Bot Index</p>
+                    <div className="flex justify-between items-center mb-1">
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Local Bot Index</p>
+                        <ChevronRight className={`w-3 h-3 text-gray-600 transition-transform ${activePanel === 'index' ? 'rotate-90' : ''}`} />
+                    </div>
                     <div className="text-5xl font-black text-data-green flex items-baseline justify-center gap-1 drop-shadow-[0_0_15px_rgba(0,230,118,0.3)]">
                         {loading ? '--' : Math.min(100, (sightings.length * 12) + 24)}
                         <span className="text-xs text-data-green/50">AQM</span>
                     </div>
+
                     <div className="mt-4 h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
                         <motion.div
                             className="h-full bg-data-green shadow-[0_0_12px_#00E676]"
@@ -337,21 +428,54 @@ export default function RadarMap() {
                             animate={{ width: loading ? 0 : `${Math.min(100, (sightings.length * 12) + 24)}%` }}
                         />
                     </div>
-                    <p className="text-[8px] text-gray-600 mt-2 font-mono uppercase tracking-[0.3em]">Calibration: Nominal</p>
+
+                    <AnimatePresence>
+                        {activePanel === 'index' && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="mt-6 pt-6 border-t border-white/5 space-y-4"
+                            >
+                                <div className="grid grid-cols-2 gap-2">
+                                    <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                                        <p className="text-[8px] text-gray-500 uppercase font-black mb-1">Ground Units</p>
+                                        <p className="text-sm font-mono text-white">{sightings.filter(s => ['sidewalk_courier', 'autonomous_road_vehicle', 'surveillance_unit'].includes(s.class)).length}</p>
+                                    </div>
+                                    <div className="bg-white/5 p-3 rounded-lg border border-white/5">
+                                        <p className="text-[8px] text-gray-500 uppercase font-black mb-1">Aerial Units</p>
+                                        <p className="text-sm font-mono text-white">{sightings.filter(s => s.class === 'aerial_drone').length}</p>
+                                    </div>
+                                </div>
+                                <div className="bg-radar-blue/10 p-3 rounded-lg border border-radar-blue/20">
+                                    <p className="text-[8px] text-radar-blue uppercase font-black mb-1">Sector Density</p>
+                                    <p className="text-xs text-gray-300">High density detected in Mission Control sector. Recommend Mesh expansion.</p>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {!activePanel && <p className="text-[8px] text-gray-600 mt-2 font-mono uppercase tracking-[0.3em] text-center">Calibration: Nominal</p>}
                 </motion.div>
 
                 <motion.div
+                    layout
                     initial={{ x: 20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="bento-tile w-52 pointer-events-auto shadow-2xl bg-black/40 border-radar-blue/10"
+                    className={`bento-tile relative pointer-events-auto shadow-2xl bg-black/40 border-radar-blue/10 transition-all duration-500 cursor-pointer overflow-hidden ${activePanel === 'health' ? 'w-64' : 'w-52'}`}
+                    onClick={() => setActivePanel(activePanel === 'health' ? null : 'health')}
                 >
                     <div className="flex justify-between items-center mb-2">
                         <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-1.5">
                             <Activity className="w-3 h-3 text-radar-blue" /> Sector Health
                         </p>
-                        <span className="text-[8px] font-mono text-radar-blue animate-pulse">OPTIMIZED</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-[8px] font-mono text-radar-blue animate-pulse">OPTIMIZED</span>
+                            <ChevronRight className={`w-3 h-3 text-gray-600 transition-transform ${activePanel === 'health' ? 'rotate-90' : ''}`} />
+                        </div>
                     </div>
+
                     <div className="flex gap-1 h-6">
                         {[1, 0.8, 1, 0.9, 0.7, 1, 1, 0.5].map((op, i) => (
                             <motion.div
@@ -362,6 +486,35 @@ export default function RadarMap() {
                             />
                         ))}
                     </div>
+
+                    <AnimatePresence>
+                        {activePanel === 'health' && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="mt-6 pt-6 border-t border-white/5 space-y-3"
+                            >
+                                <div className="flex justify-between items-center text-[8px] font-mono">
+                                    <span className="text-gray-500">Latency:</span>
+                                    <span className="text-radar-blue">14ms</span>
+                                </div>
+                                <div className="flex justify-between items-center text-[8px] font-mono">
+                                    <span className="text-gray-500">Uplink:</span>
+                                    <span className="text-radar-blue">98.4% STABLE</span>
+                                </div>
+                                <div className="flex justify-between items-center text-[8px] font-mono">
+                                    <span className="text-gray-500">Encryption:</span>
+                                    <span className="text-radar-blue">AES-256V2</span>
+                                </div>
+                                <div className="mt-4 p-2 bg-black/40 rounded border border-white/5 text-[7px] font-mono text-radar-blue/40 leading-tight">
+                                    {`LOG: Sector_Alpha_Sync OK...`}
+                                    <br />
+                                    {`LOG: Neural_Mesh_Check OK...`}
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </motion.div>
             </div>
 

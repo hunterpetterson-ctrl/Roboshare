@@ -7,7 +7,7 @@
 ## ✨ Core Features
 
 - **🌐 Global Mesh Radar**: A high-density Mapbox interface tracking verified signals across the grid.
-- **🤖 AI Machine Deconstruction**: Powered by **Google Gemini**, providing surgical identification of hardware models and "Dystopian Vibe" analysis.
+- **🤖 AI Machine Deconstruction**: Powered by **Google Gemini**, providing surgical identification of hardware models and **BOT score** (operational efficiency) analysis.
 - **🍱 Bento Dashboard**: A data-dense, modular HUD for system monitoring, mesh health, and local bot index (AQM).
 - **👁️ Tactical Viewfinder**: Interactive camera scanning interface with cinematic AI overlays.
 - **🛰️ Satellite-Linked Database**: Real-time pinning of sightings to a global census via Supabase.
@@ -45,6 +45,15 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the census.
+
+## 🧪 Prototype Simulation Mode
+
+This version of BOTdar is configured as a **"Model Prototype"** for demonstration purposes:
+- **Synthetic Mesh**: The map background uses a procedure-generated SVG urban wireframe instead of live Mapbox tiles to ensure 100% uptime without API dependencies.
+- **Simulation Deck**: The scanner cycle uses a randomized simulation deck (Couriers, Drones, Humanoids) with cinematic POI overlays.
+- **Mission Control SF**: All sightings are currently pinned to the San Francisco "Mission Control" sector with a local storage fallback for persistence.
+
+*To transition to live production: Replace the `.env.local` keys and toggle the `Navigation.geolocation` interlock in `app/scan/page.tsx`.*
 
 ---
 
