@@ -41,7 +41,7 @@ export const MOCK_ROBOTS: Robot[] = [
         hourly_rate: 225,
         fractional_availability: 0.05,
         owner_id: "user_5",
-        coordinates: [37.7305, -122.3826], // Bayview industrial
+        coordinates: [37.3688, -122.0363], // Sunnyvale
         image_url: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         description: "Heavy-duty industrial assembly robot. Precision manufacturing, welding, and high-load manipulation. 6-axis freedom."
     },
@@ -74,7 +74,7 @@ export const MOCK_ROBOTS: Robot[] = [
         hourly_rate: 85,
         fractional_availability: 0.2,
         owner_id: "user_7",
-        coordinates: [37.8205, -122.4795], // Near Golden Gate Bridge water
+        coordinates: [37.8590, -122.4852], // Sausalito
         image_url: "https://images.unsplash.com/photo-1518349619113-03114f061376?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         description: "Submersible underwater drone for hull inspections, marine research, and underwater photography."
     },
@@ -96,7 +96,7 @@ export const MOCK_ROBOTS: Robot[] = [
         hourly_rate: 55,
         fractional_availability: 0.4,
         owner_id: "user_9",
-        coordinates: [37.7946, -122.3999], // Financial District
+        coordinates: [37.5841, -122.3661], // Burlingame
         image_url: "https://images.unsplash.com/photo-1546251915-188cc26e3381?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         description: "Automated culinary robot capable of prepping ingredients, cooking complex recipes, and cleaning up afterwards."
     },
