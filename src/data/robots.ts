@@ -64,7 +64,62 @@ export const MOCK_ROBOTS: Robot[] = [
         fractional_availability: 0.1,
         owner_id: "user_6",
         coordinates: [37.7667, -122.3965], // UCSF Medical Center at Mission Bay
-        image_url: "https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        description: "Advanced medical support robot. Equipped for emergency response, patient transport, and tele-medicine diagnostics."
+        image_url: "https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Advanced humanoid medical support robot. Equipped for emergency response, patient transport, and tele-medicine diagnostics."
+    },
+    {
+        id: "7",
+        name: "Aqua-Drone Surveyor",
+        type: "Marine",
+        hourly_rate: 85,
+        fractional_availability: 0.2,
+        owner_id: "user_7",
+        coordinates: [37.8205, -122.4795], // Near Golden Gate Bridge water
+        image_url: "https://images.unsplash.com/photo-1518349619113-03114f061376?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Submersible underwater drone for hull inspections, marine research, and underwater photography."
+    },
+    {
+        id: "8",
+        name: "Construx Exosuit",
+        type: "Industrial",
+        hourly_rate: 110,
+        fractional_availability: 0.5,
+        owner_id: "user_8",
+        coordinates: [37.7952, -122.3934], // Near Embarcadero
+        image_url: "https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Wearable robotic exoskeleton that grants the user enhanced lifting strength and endurance for physical labor."
+    },
+    {
+        id: "9",
+        name: "Chef-Bot Pro",
+        type: "Culinary",
+        hourly_rate: 55,
+        fractional_availability: 0.4,
+        owner_id: "user_9",
+        coordinates: [37.7946, -122.3999], // Financial District
+        image_url: "https://images.unsplash.com/photo-1546251915-188cc26e3381?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Automated culinary robot capable of prepping ingredients, cooking complex recipes, and cleaning up afterwards."
+    },
+    {
+        id: "10",
+        name: "Urban Courier",
+        type: "Delivery",
+        hourly_rate: 18,
+        fractional_availability: 0.9,
+        owner_id: "user_10",
+        coordinates: [37.7833, -122.4167], // Tenderloin
+        image_url: "https://images.unsplash.com/photo-1608681539203-aa6a4cba8f22?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Nimble sidewalk delivery robot. Perfect for sending packages or groceries across town securely."
+    },
+    {
+        id: "11",
+        name: "CareBot Companion",
+        type: "Medical",
+        hourly_rate: 40,
+        fractional_availability: 0.8,
+        owner_id: "user_12",
+        coordinates: [37.7858, -122.4364], // Pacific Heights
+        image_url: "https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        description: "Friendly humanoid robot designed for elder care and companionship. Monitors vitals and reminds about medications."
     }
 ];
