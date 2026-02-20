@@ -20,6 +20,19 @@ const DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
+const getIconForRobot = (robot: Robot) => {
+    if (robot.type === "Medical") {
+        return L.divIcon({
+            html: `<div style="background-color: #ef4444; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 2px solid white; line-height: 1;">+</div>`,
+            className: "",
+            iconSize: [28, 28],
+            iconAnchor: [14, 14],
+            popupAnchor: [0, -14]
+        });
+    }
+    return DefaultIcon;
+};
+
 interface MapProps {
     robots: Robot[];
     className?: string;
@@ -59,6 +72,7 @@ export default function Map({ robots, className }: MapProps) {
                 <Marker
                     key={robot.id}
                     position={robot.coordinates as LatLngTuple}
+                    icon={getIconForRobot(robot)}
                 >
                     <Popup className="min-w-[300px]">
                         <div className="p-1">
