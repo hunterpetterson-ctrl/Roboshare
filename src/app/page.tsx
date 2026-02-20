@@ -7,12 +7,12 @@ import MapComponent from "@/components/map";
 import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal, Gift } from "lucide-react";
 
+// Constants
 const ROBOT_TYPES = ["All", "Humanoid", "Aerial", "Quadruped", "Industrial", "Agricultural", "Medical", "Marine", "Culinary", "Delivery", "Security", "Educational"];
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [showDonateModal, setShowDonateModal] = useState(false);
 
   const filteredRobots = useMemo(() => {
     return MOCK_ROBOTS.filter((robot) => {
@@ -27,35 +27,9 @@ export default function Home() {
   }, [activeFilter, searchQuery]);
 
   return (
-    <div className="flex flex-col h-screen bg-background">
-      {/* Header */}
-      <header className="flex h-16 shrink-0 items-center justify-between border-b px-6 bg-card sticky top-0 z-30 w-full shadow-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground text-lg font-bold">R</span>
-          </div>
-          <span className="text-xl font-bold tracking-tight text-foreground">RoboShare</span>
-          <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium hidden sm:inline-block">Beta</span>
-        </div>
-        <nav className="flex items-center gap-2 sm:gap-4 text-sm font-medium">
-          <a href="#" className="hover:text-primary transition-colors px-2 py-1">Browse</a>
-          <a href="#" className="hover:text-primary transition-colors px-2 py-1">My Robots</a>
-          <a href="#" className="hover:text-primary transition-colors px-2 py-1">Wallet</a>
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-1.5 border-green-300 text-green-700 hover:bg-green-50"
-            onClick={() => setShowDonateModal(true)}
-          >
-            <Gift className="w-3.5 h-3.5" />
-            Donate Time
-          </Button>
-          <Button size="sm">List a Robot</Button>
-        </nav>
-      </header>
-
+    <>
       {/* Main Content */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden h-full">
         {/* Left Sidebar: Listings */}
         <div className="w-full max-w-md border-r bg-background overflow-y-auto flex flex-col shadow-xl z-20">
           {/* Search & Filters */}
@@ -148,68 +122,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* Donate Time Modal */}
-      {showDonateModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowDonateModal(false)}>
-          <div className="bg-card rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                <Gift className="w-6 h-6 text-green-600" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">Donate Robot Time</h3>
-                <p className="text-sm text-muted-foreground">Help your community get things done</p>
-              </div>
-            </div>
-
-            <p className="text-sm text-foreground/80">
-              Donate unused robot hours to community members who need them. Your contribution helps reduce the need for individual robot ownership.
-            </p>
-
-            <div className="space-y-3">
-              <div>
-                <label className="text-sm font-medium mb-1 block">Hours to Donate</label>
-                <input
-                  type="number"
-                  defaultValue={1}
-                  min={1}
-                  max={24}
-                  className="w-full border rounded-lg px-3 py-2 text-sm bg-background"
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Robot Type Preference</label>
-                <select className="w-full border rounded-lg px-3 py-2 text-sm bg-background">
-                  <option>Any Robot</option>
-                  <option>Humanoid</option>
-                  <option>Aerial</option>
-                  <option>Quadruped</option>
-                  <option>Industrial</option>
-                  <option>Agricultural</option>
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1 block">Message (optional)</label>
-                <textarea
-                  placeholder="Who should this benefit? Any specific task?"
-                  className="w-full border rounded-lg px-3 py-2 text-sm bg-background resize-none h-20"
-                />
-              </div>
-            </div>
-
-            <div className="flex gap-3 pt-2">
-              <Button variant="outline" className="flex-1" onClick={() => setShowDonateModal(false)}>Cancel</Button>
-              <Button className="flex-1 bg-green-600 hover:bg-green-700" onClick={() => {
-                alert("🎉 Thank you for donating robot time to your community!");
-                setShowDonateModal(false);
-              }}>
-                Donate Time
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    </>
   );
 }

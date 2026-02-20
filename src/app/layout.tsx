@@ -12,6 +12,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+import { TopNav } from "@/components/navigation/TopNav";
+
 export const metadata: Metadata = {
   title: "RoboShare | Robot Sharing Platform",
   description: "Rent, lend, and collectively fund robots. Why own a whole robot when you can share 1/10th of one?",
@@ -27,7 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="flex flex-col h-screen bg-background text-foreground">
+          <TopNav />
+          {children}
+        </div>
       </body>
     </html>
   );
