@@ -7,7 +7,7 @@ import MapComponent from "@/components/map";
 import { Button } from "@/components/ui/button";
 import { Search, SlidersHorizontal, Gift } from "lucide-react";
 
-const ROBOT_TYPES = ["All", "Humanoid", "Aerial", "Quadruped", "Industrial", "Agricultural", "Medical", "Marine", "Culinary", "Delivery"];
+const ROBOT_TYPES = ["All", "Humanoid", "Aerial", "Quadruped", "Industrial", "Agricultural", "Medical", "Marine", "Culinary", "Delivery", "Security", "Educational"];
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState("All");
