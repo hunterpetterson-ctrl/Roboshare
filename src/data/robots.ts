@@ -64,7 +64,7 @@ export const MOCK_ROBOTS: Robot[] = [
         fractional_availability: 0.1,
         owner_id: "user_6",
         coordinates: [37.7667, -122.3965], // UCSF Medical Center
-        image_url: "https://robohash.org/medibotalpha?size=800x600&set=set1",
+        image_url: "https://plus.unsplash.com/premium_photo-1698421947833-45fad48f5dce?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8bWVkaWNhbCUyMHJvYm90fGVufDB8fHx8MTc3MTU3MzcxMnww&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
         description: "Advanced humanoid medical support robot. Equipped for emergency response, patient transport, and tele-medicine diagnostics."
     },
     {
@@ -75,7 +75,7 @@ export const MOCK_ROBOTS: Robot[] = [
         fractional_availability: 0.2,
         owner_id: "user_7",
         coordinates: [37.8590, -122.4852], // Sausalito
-        image_url: "https://images.unsplash.com/photo-1682687982501-1e5898cb8904?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image_url: "https://plus.unsplash.com/premium_photo-1683910767528-2b0c0808a9a8?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8dW5kZXJ3YXRlciUyMGRyb25lfGVufDB8fHx8MTc3MTU3MzcxM3ww&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
         description: "Submersible underwater drone for hull inspections, marine research, and underwater photography."
     },
     {
@@ -108,7 +108,7 @@ export const MOCK_ROBOTS: Robot[] = [
         fractional_availability: 0.9,
         owner_id: "user_10",
         coordinates: [37.7833, -122.4167], // Tenderloin
-        image_url: "https://images.unsplash.com/photo-1617500588820-b0ff01cbf560?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image_url: "https://plus.unsplash.com/premium_photo-1758601566675-beb95691f90f?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8ZGVsaXZlcnklMjByb2JvdHxlbnwwfHx8fDE3NzE1NzM3MTR8MA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
         description: "Nimble sidewalk delivery robot. Perfect for sending packages or groceries across town securely."
     },
     {
@@ -119,7 +119,7 @@ export const MOCK_ROBOTS: Robot[] = [
         fractional_availability: 0.8,
         owner_id: "user_12",
         coordinates: [37.7858, -122.4364], // Pacific Heights
-        image_url: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image_url: "https://plus.unsplash.com/premium_photo-1677094310899-02303289cadf?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8ZnJpZW5kbHklMjByb2JvdHxlbnwwfHx8fDE3NzE1NzM3MTV8MA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
         description: "Friendly humanoid robot designed for elder care and companionship. Monitors vitals and reminds about medications."
     },
     {
@@ -130,7 +130,7 @@ export const MOCK_ROBOTS: Robot[] = [
         fractional_availability: 0.3,
         owner_id: "user_13",
         coordinates: [37.8105, -122.2618], // Oakland Hills
-        image_url: "https://robohash.org/sentrydog?size=800x600&set=set1",
+        image_url: "https://plus.unsplash.com/premium_photo-1673960384874-55d94a381e3d?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8cm9ib3QlMjBkb2d8ZW58MHx8fHwxNzcxNTczNjg3fDA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
         description: "Autonomous quadruped security robot for perimeter patrols. Equipped with thermal and night-vision cameras."
     },
     {
@@ -141,7 +141,7 @@ export const MOCK_ROBOTS: Robot[] = [
         fractional_availability: 0.2,
         owner_id: "user_14",
         coordinates: [37.6001, -122.5002], // Half Moon Bay
-        image_url: "https://images.unsplash.com/photo-1592985684742-5f653138b25d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image_url: "https://plus.unsplash.com/premium_photo-1661959988848-2baeac715ac2?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8Y29tYmluZSUyMGhhcnZlc3RlcnxlbnwwfHx8fDE3NzE1NzM3MTZ8MA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
         description: "Heavy-duty agricultural drone tractor that autonomously plants and harvests large crop fields."
     },
     {
@@ -168,13 +168,13 @@ export const MOCK_ROBOTS: Robot[] = [
     },
     {
         id: "16",
-        name: "Waste-Shark Pro",
-        type: "Marine",
-        hourly_rate: 50,
-        fractional_availability: 0.4,
+        name: "Canine-Companion Walker",
+        type: "Agricultural", // Re-using type Agricultural or creating a generic one, let's use Humanoid
+        hourly_rate: 20,
+        fractional_availability: 0.8,
         owner_id: "user_17",
         coordinates: [37.4220, -122.0841], // Mountain View Baylands
-        image_url: "https://images.unsplash.com/photo-1618090584126-129cd1f3f4a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        description: "Autonomous aquatic drone that cleans up plastic waste and oil spills from marinas, bays, and lakes."
+        image_url: "https://plus.unsplash.com/premium_photo-1663127338777-5ddb572b9d72?ixid=M3wxMjA3fDB8MXxzZWFyY2h8MXx8ZG9nJTIwd2Fsa2luZ3xlbnwwfHx8fDE3NzE1NzM3MTd8MA&ixlib=rb-4.1.0&auto=format&fit=crop&w=800&q=80",
+        description: "Autonomous dog-walking companion robot. Keeps your furry friend exercised and safe while you're busy."
     }
 ];
