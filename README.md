@@ -67,6 +67,15 @@ To share this project with a co-developer:
     -   `npm install` (to get dependencies)
     -   `npm run dev` (to start the local server)
 
+## 🌎 Share the Prototype (No Keys Required)
+
+The current version of BOTdar is configured to run in **"Keyless Preview Mode"**. You can deploy it to Vercel/Netlify without adding any API keys, and it will automatically default to the Simulation Deck.
+
+To see it live immediately:
+1.  Run `npx vercel` in this directory.
+2.  Follow the prompts (hit Enter for defaults).
+3.  You'll get a production URL (e.g., `https://botdar-prototype.vercel.app`) to share.
+
 ---
 
 *“If you see a bot, you scan a bot. The census must match the reality.”*

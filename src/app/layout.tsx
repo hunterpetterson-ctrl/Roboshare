@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,16 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BOTdar | Autonomous Machine Census",
-  description: "Track the rise of the machines with the world's first decentralized robot radar.",
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  themeColor: "#000000",
+  title: "RoboShare | Robot Sharing Platform",
+  description: "Rent, lend, and collectively fund robots. Why own a whole robot when you can share 1/10th of one?",
 };
 
 export default function RootLayout({
